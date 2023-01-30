@@ -1,5 +1,5 @@
-# Danis³h Short-form Notation of XML and HTML
-In addition to the standard Danis³h Notation of HTML and XML, Danis³h has a more concise shortform notation.
+# Danis³h Short-Form Notation of XML and HTML
+In addition to the standard Danis³h Notation of HTML and XML, Danis³h has a more concise short-form notation.
 
 ```php
 
