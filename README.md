@@ -13,6 +13,30 @@ $My_XML_String = '<my-extensible><markup-language>String</markup-language></my-e
 $My_XML_Object = simplexml_load_string($My_XML_String);
 $My_XML_JSON = json_encode($My_XML_Object);
 ```
+
+_____
+
+The differences between the output of the PHP script immediately above and **Short-Form Danis³h Notation** are minor but important, nevertheless:
+
+### Example XML
+```xml
+<note>
+<to>Alice</to>
+<from>Bob</from>
+<heading>Question</heading>
+<body>Have you seen my chocolate pretzels?</body>
+</note>
+```
+
+### PHP Native Functions Output:
+```json
+{"to":"Alice","from":"Bob","heading":"Question","body":"Have you seen my chocolate pretzels?"}
+```
+
+### Danis³h Short-Form Notation
+```json
+{"note":{"to":{"text":"Alice"},"from":{"text":"Bob"},"heading":{"text":"Question"},"body":{"text":"Have you seen my chocolate pretzels?"}}}
+```
     
 _______
 
