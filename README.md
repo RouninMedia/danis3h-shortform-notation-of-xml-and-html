@@ -42,6 +42,10 @@ _______
 
 ```php
 
+  //*************//
+ // RENAME KEYS //
+//*************//
+
 function renameKeys($associativeArray) {
 
   $associativeArrayKeys = array_keys($associativeArray);
@@ -71,6 +75,12 @@ function renameKeys($associativeArray) {
 
   return $associativeArray;
 }
+
+
+
+  //**************************************//
+ // BUILD SHORT-FORM DANIS3H MARKUP CELL //
+//**************************************//
 
 function Build_Short_Form_Danis3h_Markup($shortformSource) {
 
