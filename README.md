@@ -16,7 +16,7 @@ $My_XML_JSON = json_encode($My_XML_Object);
 
 _____
 
-The differences between the output of the PHP script immediately above and **Short-Form Danis³h Notation** are minor but important, nevertheless:
+The differences between the output of the PHP script immediately above and **Short-Form Danis³h Notation** are minor but important:
 
 ### Example XML
 ```xml
