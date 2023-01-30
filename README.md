@@ -9,7 +9,7 @@ The short-form notation is not identical to, but inspired by the output produced
 **e.g.**
 
 ```php
-$My_XML_String = '<my-extensible><markup-language>String</markup-language></my-extensible>';
+$My_XML_String = '<note><to>Alice</to><from>Bob</from><heading>Question</heading><body>Have you seen my chocolate pretzels?</body></note>';
 $My_XML_Object = simplexml_load_string($My_XML_String);
 $My_XML_JSON = json_encode($My_XML_Object);
 ```
