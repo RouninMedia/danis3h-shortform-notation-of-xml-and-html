@@ -96,6 +96,7 @@ function Build_Short_Form_Danis3h_Markup($shortformSource) {
 
   $shortformString = implode('"plainText":', $shortformSourceArray);
 
+
   // GENERAL PREPARATION
   $shortformString = preg_replace('/\s/', '', $shortformString);
   $shortformString = preg_replace('/\"element\"\:(\"[^\"]*\")\,/', '$1:', $shortformString);
@@ -115,6 +116,7 @@ function Build_Short_Form_Danis3h_Markup($shortformSource) {
   }
 
   $shortformString = implode($shortformArray);
+
 
   // RENAME KEYS AND FINAL PREPARATION
   $shortformAssociativeArray = json_decode($shortformString, TRUE);
