@@ -1,2 +1,97 @@
-# danis3h-shortform-notation-of-xml-and-html
-In addition to the standard Danis³h Notation of HTML and XML, Danis³h has a much more concise shortform notation.
+# Danis³h Short-form Notation of XML and HTML
+In addition to the standard Danis³h Notation of HTML and XML, Danis³h has a more concise shortform notation.
+
+```php
+
+function renameKeys(&$associativeArray) {
+
+  $associativeArrayKeys = array_keys($associativeArray);
+
+  for ($i = 0; $i < count($associativeArrayKeys); $i++) {
+
+    $key = $associativeArrayKeys[$i];
+
+    if (is_array($associativeArray[$key])) {
+
+      $associativeArray[$key] = renameKeys($associativeArray[$key]);
+    }
+
+    $Previous_Refs = 0;
+    $Key_Root = explode(':', $key)[0];
+
+    for ($j = 0; $j < count($associativeArrayKeys); $j++) {
+
+      if ($associativeArrayKeys[$j] === $key) break;
+      $Previous_Refs = (explode(':', $associativeArrayKeys[$j])[0] === $Key_Root) ? ($Previous_Refs + 1) : $Previous_Refs;
+    }
+
+    $associativeArrayKeys[$i] = ($Previous_Refs < 1) ? explode(':', $associativeArrayKeys[$i])[0] : explode(':', $associativeArrayKeys[$i])[0].':'.($Previous_Refs + 1);
+    $associativeArray[$associativeArrayKeys[$i]] = $associativeArray[$key];
+    unset($associativeArray[$key]);
+  }
+
+  return $associativeArray;
+}
+
+function HTML_JSON_To_Short_form_HTML_JSON($shortformSource) {
+
+  // ESCAPE SPACES IN TEXT
+  $shortformSourceArray = explode('"plainText":', $shortformSource);
+
+  for ($i = 1; $i < count($shortformSourceArray); $i++) {
+
+    $subarray = explode('"', $shortformSourceArray[$i]);
+    $subarray[1] = str_replace(' ', '␠', $subarray[1]);
+    $shortformSourceArray[$i] = implode('"', $subarray);
+  }
+
+  $shortformString = implode('"plainText":', $shortformSourceArray);
+
+  // GENERAL PREPARATION
+  $shortformString = preg_replace('/\s/', '', $shortformString);
+  $shortformString = preg_replace('/\"element\"\:(\"[^\"]*\")\,/', '$1:', $shortformString);
+  $shortformString = str_replace('"plainText"', '"text"', $shortformString);
+  $shortformString = str_replace(['[', '"elementChildren":', ']'], '', $shortformString);
+  $shortformString = str_replace('"self-closing":true},{', '[],', $shortformString);
+  $shortformString = str_replace('}},{', '},', $shortformString);
+  $shortformString = preg_replace('/\:([^\{\[\"])/', ':[]$1', $shortformString);
+
+
+  // DE-DUPLICATE INDEXES  
+  $shortformArray = explode('":', $shortformString);
+
+  for ($i = 0; $i < (count($shortformArray) - 1); $i++) {
+
+    $shortformArray[$i] .= ':'.substr(str_shuffle(str_repeat('abcdefghijklmnopqrstuvwxyz', 3)), 0, 3).'":';
+  }
+
+  $shortformString = implode($shortformArray);
+
+  // RENAME KEYS AND FINAL PREPARATION
+  $shortformAssociativeArray = json_decode($shortformString, TRUE);
+  $shortformAssociativeArray = renameKeys($shortformAssociativeArray);
+  $shortformJSON = json_encode($shortformAssociativeArray, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+  $shortformJSON = str_replace('␠', ' ', $shortformJSON);
+
+  return $shortformJSON; 
+}
+
+```
+
+_________
+
+## Example HTML
+```html
+<section><div><p>This is a test.</p><p>This is another test.</p><nav></nav></div><div><p>This is a third test.</p><p>This is a fourth test.</p><hr/><span>Something else.</span><hr/><p>This is a fifth test.</p></div></section>
+```
+
+
+## Example Input (Long-form HTML Notation in Danis³h)
+```json
+[{"element":"section","elementChildren":[{"element":"div","elementChildren":[{"element":"p","elementChildren":[{"plainText":"This is a test."}]},{"element":"p","elementChildren":[{"plainText":"This is another test."}]},{"element":"nav","elementChildren":[]}]},{"element":"div","elementChildren":[{"element":"p","elementChildren":[{"plainText":"This is a third test."}]},{"element":"p","elementChildren":[{"plainText":"This is a fourth test."}]},{"element":"hr","self-closing":true},{"element":"span","elementChildren":[{"plainText":"Something else."}]},{"element":"hr","self-closing":true},{"element":"p","elementChildren":[{"plainText":"This is a fifth test."}]}]}]}]
+```
+
+## Example Output (Short-form HTML Notation in Danis³h)
+```json
+{"section":{"div":{"p":{"text":"This is a test."},"p:2":{"text":"This is another test."},"nav":[]},"div:2":{"p":{"text":"This is a third test."},"p:2":{"text":"This is a fourth test."},"hr":[],"span":{"text":"Something else."},"hr:2":[],"p:3":{"text":"This is a fifth test."}}}}
+```
