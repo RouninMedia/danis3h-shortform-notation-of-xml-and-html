@@ -35,7 +35,7 @@ The differences between the output of the PHP script immediately above and **Sho
 
 ### Danis³h Short-Form Notation
 ```json
-{"note":{"to":{"text":"Alice"},"from":{"text":"Bob"},"heading":{"text":"Question"},"body":{"text":"Have you seen my chocolate pretzels?"}}}
+{"note":{"to":{"txt":"Alice"},"from":{"txt":"Bob"},"heading":{"txt":"Question"},"body":{"txt":"Have you seen my chocolate pretzels?"}}}
 ```
     
 _______
@@ -89,7 +89,7 @@ function Build_Short_Form_Danis3h_Markup($shortformSource) {
   // GENERAL PREPARATION
   $shortformString = preg_replace('/\s/', '', $shortformString);
   $shortformString = preg_replace('/\"element\"\:(\"[^\"]*\")\,/', '$1:', $shortformString);
-  $shortformString = str_replace('"plainText"', '"text"', $shortformString);
+  $shortformString = str_replace('"plainText"', '"txt"', $shortformString);
   $shortformString = str_replace(['[', '"elementChildren":', ']'], '', $shortformString);
   $shortformString = str_replace('"self-closing":true},{', '[],', $shortformString);
   $shortformString = str_replace('}},{', '},', $shortformString);
@@ -134,5 +134,5 @@ _________
 
 ## Example Output (Short-form HTML Notation in Danis³h)
 ```json
-{"section":{"div":{"p":{"text":"This is a test."},"p:2":{"text":"This is another test."},"nav":[]},"div:2":{"p":{"text":"This is a third test."},"p:2":{"text":"This is a fourth test."},"hr":[],"span":{"text":"Something else."},"hr:2":[],"p:3":{"text":"This is a fifth test."}}}}
+{"section":{"div":{"p":{"txt":"This is a test."},"p:2":{"txt":"This is another test."},"nav":[]},"div:2":{"p":{"txt":"This is a third test."},"p:2":{"txt":"This is a fourth test."},"hr":[],"span":{"txt":"Something else."},"hr:2":[],"p:3":{"txt":"This is a fifth test."}}}}
 ```
