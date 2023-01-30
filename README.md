@@ -72,7 +72,7 @@ function renameKeys($associativeArray) {
   return $associativeArray;
 }
 
-function HTML_JSON_To_Short_form_HTML_JSON($shortformSource) {
+function Build_Short_Form_Danis3h_Markup($shortformSource) {
 
   // ESCAPE SPACES IN TEXT
   $shortformSourceArray = explode('"plainText":', $shortformSource);
@@ -114,6 +114,8 @@ function HTML_JSON_To_Short_form_HTML_JSON($shortformSource) {
 
   return $shortformJSON; 
 }
+
+Build_Short_Form_Danis3h_Markup($Danis3h_Long_Form_Markup);
 
 ```
 
