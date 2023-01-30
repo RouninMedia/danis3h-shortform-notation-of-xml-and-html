@@ -1,7 +1,7 @@
 # Danis³h Short-Form Notation of XML and HTML
 In addition to the standard Danis³h Notation of HTML and XML, Danis³h has a more concise short-form notation.
 
-The short-form notation is not identical to, but is based on the combination of *two* functions native to **PHP**:
+The short-form notation is not identical to, but is inspired by the output produced by the combination of *two* functions native to **PHP**:
 
  - `simplexml_load_string()`
  - `json_encode()`
